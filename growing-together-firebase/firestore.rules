@@ -1,0 +1,13 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Replace both emails with the Google accounts you and April sign in with.
+    function allowed() {
+      return request.auth != null && request.auth.token.email in ['YOU@gmail.com', 'APRIL@gmail.com'];
+    }
+    match /people/{uid} {
+      allow read: if allowed();
+      allow write: if allowed() && request.auth.uid == uid;
+    }
+  }
+}

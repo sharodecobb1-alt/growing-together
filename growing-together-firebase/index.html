@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Growing Together</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0e0820">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Growing">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+
+<style>
+:root{--bg:#0e0820;--card:#1b1334;--tx:#fff;--mu:#aaa0d0;--a:#b44dff;--b:#ff4d9d;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#f5f0ff;--card:#fff;--tx:#1a1033;--mu:#6b5f94}}
+:root[data-theme="light"]{--bg:#f5f0ff;--card:#fff;--tx:#1a1033;--mu:#6b5f94}
+:root[data-theme="dark"]{--bg:#0e0820;--card:#1b1334;--tx:#fff;--mu:#aaa0d0}
+html,body{height:auto;margin:0}
+body{background:radial-gradient(circle at 20% -10%,color-mix(in srgb,var(--a) 35%,transparent),transparent 55%),radial-gradient(circle at 100% 10%,color-mix(in srgb,var(--b) 28%,transparent),transparent 50%),var(--bg);color:var(--tx);font:16px/1.4 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;min-height:100vh;padding-bottom:84px}
+body[data-side=april]{--a:#00e5c0;--b:#c6ff3d}
+body[data-side=sharod]{--a:#b44dff;--b:#ff4d9d}
+.w{max-width:520px;margin:0 auto;padding:14px}
+h1{font-size:20px;margin:6px 0 10px;letter-spacing:.3px}
+.pills{display:flex;gap:8px;margin-bottom:12px}
+.pill{flex:1;padding:12px;border-radius:16px;border:2px solid transparent;background:var(--card);color:var(--tx);font-weight:800;font-size:15px;cursor:pointer}
+.pill.on{background:linear-gradient(135deg,var(--a),var(--b));color:#111}
+.card{background:var(--card);border-radius:22px;padding:16px;margin:12px 0;box-shadow:0 6px 24px rgba(0,0,0,.2)}
+.hero{text-align:center;position:relative;overflow:hidden}
+.mas{display:inline-block;animation:fl 2.6s ease-in-out infinite;filter:drop-shadow(0 8px 14px color-mix(in srgb,var(--a) 60%,transparent))}
+@keyframes fl{50%{transform:translateY(-10px) rotate(3deg)}}
+.bar{height:12px;border-radius:9px;background:rgba(127,127,127,.25);overflow:hidden;margin:8px 0}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--a),var(--b));border-radius:9px;transition:width .6s}
+.mu{color:var(--mu);font-size:13px}
+.row{display:flex;gap:10px;align-items:center}
+.stat{flex:1;text-align:center;background:rgba(127,127,127,.12);border-radius:16px;padding:10px 4px}
+.stat b{display:block;font-size:22px}
+.task{display:flex;gap:12px;align-items:flex-start;padding:12px;border-radius:18px;background:rgba(127,127,127,.12);margin:10px 0;transition:.2s}
+.task.d{background:linear-gradient(135deg,color-mix(in srgb,var(--a) 35%,transparent),color-mix(in srgb,var(--b) 35%,transparent))}
+.chk{flex:none;width:34px;height:34px;border-radius:50%;border:3px solid var(--a);background:none;color:#111;font-size:18px;font-weight:900;cursor:pointer}
+.task.d .chk{background:var(--a)}
+.task.d .tt{text-decoration:line-through;opacity:.7}
+.tt{font-weight:700}
+a.yt{display:inline-block;margin-top:6px;font-size:13px;font-weight:700;color:var(--a);text-decoration:none}
+.btn{width:100%;border:0;border-radius:18px;padding:15px;font-size:17px;font-weight:900;color:#111;background:linear-gradient(135deg,var(--a),var(--b));cursor:pointer;animation:pu 2s infinite}
+.btn:disabled{opacity:.6;animation:none}
+@keyframes pu{50%{transform:scale(1.025)}}
+.sm{border:0;border-radius:12px;padding:9px 13px;font-weight:800;background:var(--a);color:#111;cursor:pointer}
+input[type=text],input[type=date]{width:100%;box-sizing:border-box;border-radius:12px;border:2px solid rgba(127,127,127,.3);background:transparent;color:var(--tx);padding:10px;font-size:15px}
+.nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:var(--card);padding:8px 8px calc(8px + env(safe-area-inset-bottom,0px));box-shadow:0 -4px 20px rgba(0,0,0,.25);z-index:5}
+.nav button{flex:1;border:0;background:none;color:var(--mu);font-size:12px;font-weight:800;padding:6px;cursor:pointer}
+.nav button.on{color:var(--a)}
+.nav span{display:block;font-size:22px}
+.dots{display:flex;gap:6px;justify-content:space-between}
+.dot{flex:1;text-align:center;font-size:11px;color:var(--mu)}
+.dot i{display:block;height:32px;border-radius:10px;background:rgba(127,127,127,.2);margin-bottom:3px}
+.dot.d i{background:linear-gradient(135deg,var(--a),var(--b))}
+.ring{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;font-weight:900;flex:none}
+.ring b{width:48px;height:48px;border-radius:50%;background:var(--card);display:grid;place-items:center;font-size:14px}
+.cf{position:fixed;top:40%;left:50%;font-size:28px;pointer-events:none;z-index:9;animation:cf 1.3s ease-out forwards}
+@keyframes cf{to{transform:translate(var(--x),var(--y)) rotate(360deg);opacity:0}}
+.ms{display:flex;gap:8px;align-items:center;margin:6px 0;font-size:14px}
+.err{color:#ff6b6b;font-size:13px}
+</style></head>
+<body><div class="w" id="app"><div class="card">Loading…</div></div>
+<script src="firebase-config.js"></script>
+<script>window.__gt=new Promise(r=>{window.__gtRes=r});window.claude={use:n=>window.__gt.then(x=>x[n]||null)};</script>
+<div id="gtlogin" style="display:none;position:fixed;inset:0;z-index:20;background:#0e0820;color:#fff;font:16px system-ui,sans-serif;text-align:center;padding:30vh 24px 0">
+<div style="font-size:64px">🌱</div><h2>Growing Together</h2><p id="gtmsg" style="opacity:.8"></p>
+<button id="gtbtn" style="border:0;border-radius:18px;padding:15px 26px;font-size:17px;font-weight:900;background:linear-gradient(135deg,#b44dff,#ff4d9d);color:#111;cursor:pointer">Sign in with Google</button></div>
+<script type="module">
+const L=i=>document.getElementById(i),show=m=>{L('gtlogin').style.display='block';L('gtmsg').textContent=m};
+try{
+ const cfg=window.FIREBASE_CONFIG;
+ if(!cfg||!cfg.apiKey||cfg.apiKey.startsWith('PASTE'))throw new Error('Firebase isn’t set up yet. Fill in firebase-config.js (see SETUP.md).');
+ const G='https://www.gstatic.com/firebasejs/10.14.1/';
+ const {initializeApp}=await import(G+'firebase-app.js');
+ const {getAuth,onAuthStateChanged,signInWithPopup,GoogleAuthProvider}=await import(G+'firebase-auth.js');
+ const {initializeFirestore,persistentLocalCache,collection,doc,setDoc,onSnapshot}=await import(G+'firebase-firestore.js');
+ const app=initializeApp(cfg),auth=getAuth(app),fs=initializeFirestore(app,{localCache:persistentLocalCache()});
+ const u=await new Promise(res=>{onAuthStateChanged(auth,x=>{if(x)res(x);else{show('Sign in to open your shared space.');L('gtbtn').onclick=()=>signInWithPopup(auth,new GoogleAuthProvider()).catch(e=>show('Sign-in failed: '+e.message))}})});
+ L('gtlogin').style.display='none';
+ const call=async b=>{const t=await auth.currentUser.getIdToken();const r=await fetch('/.netlify/functions/ai',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+t},body:JSON.stringify(b)});const j=await r.json().catch(()=>({}));if(!r.ok)throw new Error(j.error||('Server error '+r.status));return j};
+ const db={collection:p=>({onSnapshot:(f,e)=>onSnapshot(collection(fs,p),f,e)}),doc:p=>({set:d=>setDoc(doc(fs,p),JSON.parse(JSON.stringify(d)))})};
+ const sample=async p=>({text:(await call({prompt:p})).text});
+ sample.json=async p=>JSON.parse((await call({prompt:p})).text);
+ sample.yt=async q=>(await call({yt:q})).videos;
+ const user={id:async()=>u.uid};
+ window.__gtRes({db,sample,user});
+}catch(e){show(String(e.message||e))}
+</script>
+<script>
+const $=id=>document.getElementById(id);
+const D=()=>new Date().toLocaleDateString('en-CA');
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const ST={frog:[['🥚','Egg'],['🫧','Tadpole'],['🐸','Froglet'],['🐸','Frog'],['👑🐸','Frog Royalty']],butterfly:[['🥚','Egg'],['🐛','Caterpillar'],['🍃','Chrysalis'],['🦋','Butterfly'],['✨🦋','Radiant Butterfly']]};
+const TH=[0,20,60,120,200];
+const DEF={sharod:[{n:'Go to the gym',gym:1},{n:'Post fashion content'},{n:'Practice acting daily'}],april:[{n:'Spanish: mid A2 → upper B1'},{n:'Make a queen-size quilt'},{n:'Grow on TikTok'}]};
+const NAME={sharod:'Sharod',april:'April'};
+let db,sample,user,uid,me=null,people={},viewSide=null,tab='today',busy=false,err='';
+function other(){const e=Object.entries(people).find(([k])=>k!==uid);return e?e[1]:null}
+function subj(){if(!me)return null;return viewSide===me.side?me:other()}
+function pts(s,o){return Object.keys(s?.days||{}).reduce((p,k)=>p+10+(o?.days?.[k]?10:0),0)}
+function stage(p){let i=0;TH.forEach((t,j)=>{if(p>=t)i=j});return i}
+function dayStr(n){const d=new Date();d.setDate(d.getDate()-n);return d.toLocaleDateString('en-CA')}
+function streak(s){const d=s?.days||{};let n=d[D()]?0:1,c=0;while(d[dayStr(n)]){c++;n++}return c}
+function best(s){const ks=Object.keys(s?.days||{}).sort();let b=0,c=0,p=null;ks.forEach(k=>{c=(p&&(new Date(k)-new Date(p))/864e5===1)?c+1:1;b=Math.max(b,c);p=k});return b}
+async function save(){try{await db.doc('people/'+uid).set(me)}catch(e){err='Couldn’t save: '+(e.message||e.code)}}
+function tasks(s){return s?.day?.date===D()?s.day.tasks:[]}
+function burst(){const em=['🎉','✨','💜','🔥','⭐','🦋','🐸'];for(let i=0;i<22;i++){const e=document.createElement('span');e.className='cf';e.textContent=em[i%em.length];e.style.setProperty('--x',(Math.random()*340-170)+'px');e.style.setProperty('--y',(Math.random()*-320-40)+'px');document.body.appendChild(e);setTimeout(()=>e.remove(),1400)}}
+async function pick(side,m){const g=JSON.parse(JSON.stringify(DEF[side]));me={side,mascot:m,goals:g,days:{},learn:[],day:{date:'',tasks:[]}};viewSide=side;await save();render()}
+async function gen(){
+  if(!sample){err='AI isn’t available in this view.';render();return}
+  busy=true;err='';render();
+  try{
+    const pool=me.goals.filter(g=>!g.gym),g=pool[Math.floor(Date.now()/864e5)%pool.length];
+    const recent=(me.learn||[]).slice(0,6).map(x=>x.t).join('; ')||'none yet';
+    const ms=(g.ms||[]).map(m=>(m.d?'[done] ':'[todo] ')+m.t).join(', ')||'none set';
+    const r=await sample.json(`You are a warm, upbeat accountability coach for ${NAME[me.side]}. Today’s focus goal: "${g.n}" (target date: ${g.end||'not set'}). Milestones: ${ms}. They have completed ${Object.keys(me.days).length} days so far, current streak ${streak(me)}. Recent suggestions to avoid repeating: ${recent}. Give ONE small task (10–25 minutes) that moves them one step closer to this goal. Return only JSON: {"task":"...","why":"one short motivating sentence","query":"a YouTube search phrase for a tutorial that helps with this exact task","video":"what kind of video to look for, under 12 words"}`);
+    const t=[{t:r.task,why:r.why,g:g.n,q:r.query,v:r.video,done:false}];
+    const gym=me.goals.find(x=>x.gym);
+    if(gym)t.push({t:'Hit the gym — even 20 minutes counts',why:'Daily reps build the person you’re becoming.',g:gym.n,q:'full body gym workout follow along',v:'Follow-along workout',gym:1,done:false});
+    if(sample.yt)for(const x of t){try{const v=await sample.yt(x.q);if(v&&v[0])x.vid=v[0]}catch(e){}}
+    me.day={date:D(),tasks:t};
+    me.learn=[{t:r.video,g:g.n,q:r.query,d:D()},...(me.learn||[])].slice(0,24);
+    await save();
+  }catch(e){err='AI hiccup: '+(e.message||e.code||'try again')}
+  busy=false;render();
+}
+async function more(){
+  busy=true;err='';render();
+  try{
+    const r=await sample.json(`Suggest 3 helpful YouTube videos to search for, based on these goals and progress. Goals: ${me.goals.map(g=>g.n).join('; ')}. Days completed: ${Object.keys(me.days).length}. Already suggested: ${(me.learn||[]).slice(0,8).map(x=>x.t).join('; ')}. Return only a JSON array of {"video":"short description","goal":"which goal","query":"YouTube search phrase"}.`);
+    me.learn=[...r.map(x=>({t:x.video,g:x.goal,q:x.query,d:D()})),...(me.learn||[])].slice(0,24);await save();
+  }catch(e){err='AI hiccup: '+(e.message||e.code||'try again')}
+  busy=false;render();
+}
+async function tog(i){
+  const t=me.day.tasks;t[i].done=!t[i].done;
+  const all=t.length&&t.every(x=>x.done);
+  if(all){me.days[D()]=1;burst()}else delete me.days[D()];
+  await save();render();
+}
+async function setEnd(i,v){me.goals[i].end=v;await save();render()}
+async function addMs(i){const el=$('ms'+i);if(!el.value.trim())return;(me.goals[i].ms=me.goals[i].ms||[]).push({t:el.value.trim(),d:false});await save();render()}
+async function togMs(i,j){const m=me.goals[i].ms[j];m.d=!m.d;if(m.d)burst();await save();render()}
+async function addGoal(){const el=$('ng');if(!el.value.trim())return;me.goals.push({n:el.value.trim()});await save();render()}
+function setView(s){viewSide=s;render()}
+function setTab(t){tab=t;render()}
+function daysLeft(e){if(!e)return'';const n=Math.ceil((new Date(e)-new Date(D()))/864e5);return n<0?'past due':n+' days left'}
+function render(){
+  const A=$('app');
+  if(!db||!user){A.innerHTML='<div class="card"><h1>Growing Together 🌱</h1>Couldn’t connect. Reload, check your internet, and make sure you’re signed in.</div>';return}
+  if(!me){
+    const taken=Object.values(people).map(p=>p.side);
+    A.innerHTML=`<div class="card"><h1>Welcome 🌱 Who’s this?</h1><p class="mu">Pick your side and your mascot. Your partner does the same on her phone.</p>
+    ${['sharod','april'].map(s=>`<div class="mu" style="margin:12px 0 6px">${NAME[s]} side ${taken.includes(s)?'(taken)':''}</div><div class="row"><button class="sm" style="flex:1;padding:14px" ${taken.includes(s)?'disabled':''} onclick="pick('${s}','frog')">🐸 Frog</button><button class="sm" style="flex:1;padding:14px" ${taken.includes(s)?'disabled':''} onclick="pick('${s}','butterfly')">🦋 Butterfly</button></div>`).join('')}${err?`<p class="err">${esc(err)}</p>`:''}</div>`;
+    return;
+  }
+  if(!viewSide)viewSide=me.side;
+  document.body.dataset.side=viewSide;
+  const s=subj(),ro=s!==me,o=ro?me:other(),p=pts(s,o),st=stage(p),nx=TH[st+1],pc=nx?Math.round((p-TH[st])/(nx-TH[st])*100):100;
+  const ts=tasks(s),dn=ts.filter(t=>t.done).length,deg=ts.length?dn/ts.length*360:0;
+  const bothToday=s?.days?.[D()]&&o?.days?.[D()];
+  let h=`<h1>Growing Together 🌱</h1><div class="pills">${['sharod','april'].map(k=>`<button class="pill ${viewSide===k?'on':''}" onclick="setView('${k}')">${NAME[k]} side${k===me.side?' (you)':''}</button>`).join('')}</div>`;
+  if(!s){h+=`<div class="card">${NAME[viewSide]} hasn’t joined yet. Send her the link and have her pick her side. 💌</div>`}
+  else{
+    const m=ST[s.mascot][st];
+    if(tab==='today'){
+      h+=`<div class="card hero"><div class="mas" style="font-size:${60+st*16}px">${m[0]}</div><div><b>${m[1]}</b> · ${p} growth pts</div><div class="bar"><i style="width:${pc}%"></i></div><div class="mu">${nx?`${nx-p} pts to ${ST[s.mascot][st+1][1]}`:'Max evolution reached! 👑'}</div><div class="mu" style="margin-top:6px">${bothToday?'🔥 You both finished today — double growth!':'Both finish today = faster growth'}</div></div>
+      <div class="row"><div class="stat"><b>🔥 ${streak(s)}</b><span class="mu">streak</span></div><div class="stat"><b>${Object.keys(s.days||{}).length}</b><span class="mu">days done</span></div><div class="stat"><b>${o?.days?.[D()]?'✅':'⏳'}</b><span class="mu">${ro?'you':'partner'} today</span></div></div>
+      <div class="card"><div class="row"><div class="ring" style="background:conic-gradient(var(--a) ${deg}deg,rgba(127,127,127,.25) 0)"><b>${dn}/${ts.length}</b></div><div><b>Today’s steps</b><div class="mu">${ts.length?'Tick them off to grow your '+s.mascot:'Fresh steps, built for where you are now'}</div></div></div>
+      ${ts.map((t,i)=>`<div class="task ${t.done?'d':''}"><button class="chk" ${ro?'disabled':''} onclick="tog(${i})">${t.done?'✓':''}</button><div><div class="mu">${esc(t.g)}</div><div class="tt">${esc(t.t)}</div><div class="mu">${esc(t.why)}</div><a class="yt" target="_blank" rel="noopener" href="${t.vid?'https://www.youtube.com/watch?v='+t.vid.id:'https://www.youtube.com/results?search_query='+encodeURIComponent(t.q)}">▶ ${esc(t.vid?t.vid.title:(t.v||'Watch a tutorial'))}</a></div></div>`).join('')}
+      ${!ro&&!ts.length?`<button class="btn" ${busy?'disabled':''} onclick="gen()">${busy?'Building your day…':'✨ Get today’s steps'}</button>`:''}
+      ${err?`<p class="err">${esc(err)}</p>`:''}</div>`;
+    }else if(tab==='goals'){
+      h+=s.goals.map((g,i)=>{const ms=g.ms||[],dd=ms.filter(x=>x.d).length;return`<div class="card"><b>${esc(g.n)}</b> <span class="mu">${daysLeft(g.end)}</span>
+      ${ms.length?`<div class="bar"><i style="width:${Math.round(dd/ms.length*100)}%"></i></div>`:''}
+      ${ms.map((x,j)=>`<div class="ms"><input type="checkbox" ${x.d?'checked':''} ${ro?'disabled':''} onchange="togMs(${i},${j})"> ${esc(x.t)}</div>`).join('')}
+      ${ro?(g.end?`<div class="mu">Target: ${esc(g.end)}</div>`:''):`<div class="row" style="margin-top:8px"><input type="text" id="ms${i}" placeholder="Add a milestone"><button class="sm" onclick="addMs(${i})">Add</button></div><div class="mu" style="margin:8px 0 4px">End date</div><input type="date" value="${esc(g.end||'')}" onchange="setEnd(${i},this.value)">`}</div>`}).join('')
+      +(ro?'':`<div class="card"><div class="row"><input type="text" id="ng" placeholder="Add a new goal"><button class="sm" onclick="addGoal()">Add</button></div></div>`);
+    }else if(tab==='learn'){
+      h+=`<div class="card"><b>Learn 🎬</b><div class="mu">Tap to open live YouTube results for each pick.</div>${(s.learn||[]).map(x=>`<div class="task"><div><div class="mu">${esc(x.g)} · ${esc(x.d)}</div><div class="tt">${esc(x.t)}</div><a class="yt" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=${encodeURIComponent(x.q)}">▶ Search: ${esc(x.q)}</a></div></div>`).join('')||'<p class="mu">Suggestions appear as you get daily steps.</p>'}
+      ${ro?'':`<button class="btn" style="margin-top:8px;animation:none" ${busy?'disabled':''} onclick="more()">${busy?'Finding…':'Suggest more videos'}</button>`}${err?`<p class="err">${esc(err)}</p>`:''}</div>`;
+    }else{
+      const wk=[6,5,4,3,2,1,0].map(n=>{const k=dayStr(n);return`<div class="dot ${s.days?.[k]?'d':''}"><i></i>${new Date(k+'T12:00').toLocaleDateString('en-US',{weekday:'narrow'})}</div>`}).join('');
+      const wc=[0,1,2,3,4,5,6].filter(n=>s.days?.[dayStr(n)]).length,tg=Object.keys(s.days||{}).filter(k=>o?.days?.[k]).length;
+      h+=`<div class="card"><b>This week</b><div class="dots" style="margin:10px 0">${wk}</div><div class="mu">${wc}/7 days complete</div></div>
+      <div class="row"><div class="stat"><b>🔥 ${streak(s)}</b><span class="mu">streak</span></div><div class="stat"><b>🏆 ${best(s)}</b><span class="mu">best</span></div></div>
+      <div class="row" style="margin-top:10px"><div class="stat"><b>💞 ${tg}</b><span class="mu">days together</span></div><div class="stat"><b>${p}</b><span class="mu">growth pts</span></div></div>`;
+    }
+  }
+  h+=`<nav class="nav">${[['today','🏠','Today'],['goals','🎯','Goals'],['learn','🎬','Learn'],['recap','📊','Recap']].map(([k,i,l])=>`<button class="${tab===k?'on':''}" onclick="setTab('${k}')"><span>${i}</span>${l}</button>`).join('')}</nav>`;
+  A.innerHTML=h;
+}
+render();
+(async()=>{
+  try{
+    if(!window.claude)return;
+    [db,sample,user]=await Promise.all([claude.use('db'),claude.use('sample'),claude.use('user')]);
+    if(!db||!user){render();return}
+    uid=await user.id();
+    db.collection('people').onSnapshot(sn=>{people={};sn.docs.forEach(d=>people[d.id]=d.data());me=people[uid]||null;render()},e=>{err=e.message;render()});
+  }catch(e){err=String(e.message||e);render()}
+})();
+
+if('serviceWorker' in navigator&&/^https?:/.test(location.protocol)){window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}))}
+</script></body></html>
