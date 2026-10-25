@@ -1,4 +1,4 @@
-window.firebaseConfig = {
+window.FIREBASE_CONFIG = {
   apiKey: "AIzaSyA_Y-6A-csBQlLU86c9eurseKuT3no8rIo",
   authDomain: "growing-together-app.firebaseapp.com",
   projectId: "growing-together-app",
