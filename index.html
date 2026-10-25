@@ -75,7 +75,7 @@ try{
  if(!cfg||!cfg.apiKey||cfg.apiKey.startsWith('PASTE'))throw new Error('Firebase isn’t set up yet. Fill in firebase-config.js (see SETUP.md).');
  const G='https://www.gstatic.com/firebasejs/10.14.1/';
  const {initializeApp}=await import(G+'firebase-app.js');
- const {getAuth,onAuthStateChanged,signInWithPopup,GoogleAuthProvider}=await import(G+'firebase-auth.js');
+ const {getAuth,onAuthStateChanged,signInWithRedirect,GoogleAuthProvider}=await import(G+'firebase-auth.js');
  const {initializeFirestore,persistentLocalCache,collection,doc,setDoc,onSnapshot}=await import(G+'firebase-firestore.js');
  const app=initializeApp(cfg),auth=getAuth(app),fs=initializeFirestore(app,{localCache:persistentLocalCache()});
  const u=await new Promise(res=>{onAuthStateChanged(auth,x=>{if(x)res(x);else{show('Sign in to open your shared space.');L('gtbtn').onclick=()=>signInWithPopup(auth,new GoogleAuthProvider()).catch(e=>show('Sign-in failed: '+e.message))}})});
